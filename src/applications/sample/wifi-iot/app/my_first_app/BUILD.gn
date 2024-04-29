@@ -1,0 +1,9 @@
+static_library("mymessage") {  //指定业务模块的编译结果，为静态库文件libmyapp.a
+    sources = [
+        "message_example.c"   //指定静态库.a所依赖的.c文件及其路径
+    ]
+    include_dirs = [  //指定source所需要依赖的.h头文件路径。
+        "//utils/native/lite/include"  //指定include文件夹下ohos_init.h文件
+        "//device/hisilicon/hispark_pegasus/hi3861_adapter/kal/cmsis" //指定cmsis文件夹下的cmsis_os2.h文件
+    ]
+}

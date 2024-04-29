@@ -1,0 +1,29 @@
+# Copyright (c) 2020 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# 定义一个名为 "haha" 的静态库
+static_library("haha") {
+    # 指定源文件，这里只有一个 "demo.c"
+    sources = [
+        "led_example.c"
+    ]
+
+    # 指定头文件搜索路径，编译器会在这些路径下搜索头文件
+    include_dirs = [
+        "//base/iot_hardware/peripheral/interfaces/kits",
+        "//vendor/bearpi/bearpi_hm_nano/common/iot_hardware_hals/include",
+    ]
+
+    # 指定依赖项，这里依赖了 "bearpi_iot_hardware_hals" 这个目标
+    deps = [ "//vendor/bearpi/bearpi_hm_nano/common/iot_hardware_hals:bearpi_iot_hardware_hals" ]
+}

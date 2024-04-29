@@ -1,0 +1,37 @@
+
+
+config_file = [ "//vendor/bearpi/bearpi_hm_nano/common/third_party/libs/libiot_link.a" ]
+copy("config") {
+  sources = config_file
+  outputs = [ "//out/hispark_pegasus/wifiiot_hispark_pegasus/libs/{{source_file_part}}" ]
+}
+
+static_library("example_demolink") {
+  sources = [
+    #"src/MPU9250_5.c",
+    "infrared_example.c"
+  ]
+
+  include_dirs = [
+    "//base/iot_hardware/peripheral/interfaces/kits",
+    "//vendor/bearpi/bearpi_hm_nano/common/iot_hardware_hals/include",
+    "//foundation/communication/wifi_lite/interfaces/wifiservice",
+    "//third_party/cJSON",
+    "//src/device/hisilicon/hispark_pegasus/sdk_liteos/third_party/glibc-2.29/glibc-2.29/include",
+    "//vendor/bearpi/bearpi_hm_nano/common/third_party/iot_link/oc_mqtt/oc_mqtt_al",
+    "//vendor/bearpi/bearpi_hm_nano/common/third_party/iot_link/oc_mqtt/oc_mqtt_profile_v5",
+    "//vendor/bearpi/bearpi_hm_nano/common/third_party/iot_link/inc",
+    "include",
+    "//src/device/hisilicon/hispark_pegasus/sdk_liteos/include",
+    "//utils/native/lite/include",
+    "//domains/iot/link/libbuild",
+    "//base/iot_hardware/peripheral/interfaces/kits",
+    "//vendor/bearpi/bearpi_hm_nano/common/iot_hardware_hals/include",
+    "//src/utils/native/lite/include",
+    "//src/vendor/hisilicon/hispark_pegasus/demo",
+    "//base/security/huks/frameworks/huks_standard/main/common/include",
+]
+
+  deps = [ ":config" ]
+  deps += [ "//vendor/bearpi/bearpi_hm_nano/common/iot_hardware_hals:bearpi_iot_hardware_hals" ]
+}

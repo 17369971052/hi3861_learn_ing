@@ -1,0 +1,14 @@
+Building at 2024/05/07 15:18:32
+----------------------------top-----------------
+lib_name: uart
+lib_name: adc
+lib_name: tsensor
+lib_name: i2c
+lib_name: pwm
+lib_name: cfg
+lib_name: parttab
+lib_name: upg
+lib_name: at
+lib_name: wifiiot_app
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~libpath: ['-LD:\\DevTools_Hi3861V100_v1.0\\hcc_riscv32_win\\bin\\..\\lib\\gcc\\riscv32-unknown-elf\\7.3.0', '-LD:\\hi3861_hdu_iot_application-master\\src\\device\\hisilicon\\hispark_pegasus\\sdk_liteos\\build\\scripts\\..\\..\\..\\..\\..\\huawei\\hms\\hilink\\ohos\\l0\\hi3861\\lib\\wifi', '-Lbuild\\build_tmp\\libs\\app\\wifiiot_app', '-Lbuild\\build_tmp\\libs\\components\\at', '-Lbuild\\build_tmp\\libs\\platform\\drivers', '-Lbuild\\build_tmp\\libs\\platform\\system', '-Lbuild\\build_tmp\\scripts', '-Lbuild\\libs', '-Lbuild\\libs\\hi3861\\release\\no_mesh', '-Lbuild\\scripts', '-Lohos\\libs']
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~libs: ['-ladc', '-lat', '-lc_flash', '-lcfg', '-lcoap', '-lcpup', '-ldiag', '-ldrv', '-lflash', '-lgcc', '-lgpio', '-lhistreaminglink', '-li2c', '-lio', '-liperf', '-llitekernel_flash', '-lltoswpa', '-llwip', '-lm_flash', '-lmbedtls', '-lmqtt', '-lparttab', '-lpwm', '-lres_cfg', '-lsdio', '-lsec_flash', '-lspiffs', '-lsystem', '-ltsensor', '-luart', '-lupg', '-lwifi', '-lwifi_flash', '-lwifiiot_app', '-lwpa', '--whole-archive', '-lauthmanager', '-lbearpi_iot_hardware_hals', '-lbootstrap', '-lbroadcast', '-lcjson_static', '-lcmsis', '-ldeviceauth', '-ldeviceauth_hal_liteos', '-ldiscovery', '-ldump_static', '-lexample_demolink', '-lhal_file_static', '-lhal_iothardware', '-lhal_sysparam', '-lhal_token_static', '-lhal_update_static', '-lhal_wifiaware', '-lhichainsdk', '-lhilog_lite', '-lhiview_lite', '-lhota', '-lhuks_3.0_sdk', '-liot_link', '-lnative_file', '-lposix', '-lsamgr', '-lsamgr_adapter', '-lsamgr_source', '-lsysparam', '-ltoken_static', '-ltrans_service', '-lutils_kv_store', '-lwifiaware', '-lwifiservice', '--no-whole-archive']
