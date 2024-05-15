@@ -24,7 +24,6 @@
 #define LED_GPIO 2
 #define BUTTON_F1_GPIO 11
 #define BUTTON_F2_GPIO 12
-
 /**
  * @brief Callback for F1 key
  *
@@ -49,6 +48,7 @@ static void F2Pressed(char *arg)
  * @brief Main Entry of the Button Example
  *
  */
+/*
 static void ButtonExampleEntry(void)
 {
     // init gpio of LED
@@ -69,5 +69,23 @@ static void ButtonExampleEntry(void)
     IoTGpioSetPull(BUTTON_F2_GPIO, IOT_GPIO_PULL_UP);
     IoTGpioRegisterIsrFunc(BUTTON_F2_GPIO, IOT_INT_TYPE_EDGE, IOT_GPIO_EDGE_FALL_LEVEL_LOW, F2Pressed, NULL);
 }
+*/
+static void ButtonExampleEntry(void)
+{
+    //init gpio of LED
+    IoTGpioInit(LED_GPIO);
+    IoTGpioSetDir(LED_GPIO, IOT_GPIO_DIR_OUT);
 
+    //init gpio of F1 key and set it as the falling edge to trigger interrupt
+    IoTGpioInit(BUTTON_F1_GPIO);
+    IoTGpioSetDir(BUTTON_F1_GPIO, IOT_GPIO_DIR_IN);
+    IoTGpioSetPull(BUTTON_F1_GPIO, IOT_GPIO_PULL_UP);
+    IoTGpioRegisterIsrFunc(BUTTON_F1_GPIO, IOT_INT_TYPE_EDGE, IOT_GPIO_EDGE_FALL_LEVEL_LOW, F1Pressed, NULL);
+
+    //init gpio of F2 key and set it as the falling edge to trigger interrupt
+    IoTGpioInit(BUTTON_F2_GPIO);
+    IoTGpioSetDir(BUTTON_F2_GPIO, IOT_GPIO_DIR_IN);
+    IoTGpioSetPull(BUTTON_F2_GPIO, IOT_GPIO_PULL_UP);
+    IoTGpioRegisterIsrFunc(BUTTON_F2_GPIO, IOT_INT_TYPE_EDGE, IOT_GPIO_EDGE_FALL_LEVEL_LOW, F2Pressed, NULL);
+}
 APP_FEATURE_INIT(ButtonExampleEntry);

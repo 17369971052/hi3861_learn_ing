@@ -30,6 +30,8 @@ static_library("example_demolink") {
     "//src/utils/native/lite/include",
     "//src/vendor/hisilicon/hispark_pegasus/demo",
     "//base/security/huks/frameworks/huks_standard/main/common/include",
+    "//src/device/hisilicon/hispark_pegasus/sdk_liteos/third_party/u-boot-v2019.07/u-boot-v2019.07/drivers/serial",
+    "//src/device/hisilicon/hispark_pegasus/hi3861_adapter/kal/cmsis",
 ]
 
   deps = [ ":config" ]

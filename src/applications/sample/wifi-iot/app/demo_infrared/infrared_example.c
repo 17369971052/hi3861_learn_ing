@@ -1,9 +1,12 @@
 #include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 
 #include "cmsis_os2.h"
 #include "iot_gpio.h"
 #include "ohos_init.h"
+#include "iot_errno.h"
+#include "iot_uart.h"
 
 #include "iot_errno.h"
 #include "iot_gpio.h"
@@ -14,7 +17,12 @@
 #define INFR_TASK_STACK_SIZE 1024 * 8
 #define INFR_TASK_PRIO 25
 #define INFR_BUFF_SIZE 1000
-
+#define TASK_DELAY_1S 1000000
+#define UART_TASK_STACK_SIZE (1024 * 8)
+#define UART_TASK_PRIO 25
+#define UART_BUFF_SIZE 1000
+#define WIFI_IOT_UART_IDX_1 1
+#define TASK_DELAY_1S 1000000
 
 #define BUTTON_F1_GPIO 11
 #define BUTTON_F2_GPIO 12
@@ -50,7 +58,7 @@ byte IrStudy(byte *data, byte group) {
   cs = getSum(&data[3], offset - data - 3);
   *offset++ = cs;
   *offset++ = 0x16;
-  return offset - data; 
+  return offset - data;
 }
 
 //红外内码发送
@@ -70,105 +78,111 @@ byte IrSend(byte *data, byte group) {
   cs = getSum(&data[3], offset - data - 3);
   *offset++ = cs;
   *offset++ = 0x16;
-  return offset - data; 
-}
-/*
-//按键状态回读
-void keyRead() {
-  byte data = 0x00;
-  if (digitalRead(K1) == 0) {
-    data |= K1_MASK;   
-  }
-  if (digitalRead(K2) == 0) {
-    data |= K2_MASK;  
-  }
-  trg = data & (data ^ cont);
-  cont = data;
+  return offset - data;
 }
 
-//按键按下检测处理
-void keyHandle() {
-  if (trg == 0x00) {
-      return;
-  }
-*/
-byte sstudy(){
-  //按键1按下，开始红外内码学习
+static void UartTask1(void)
+{
+    uint8_t uart_buff[UART_BUFF_SIZE] = { 0 };
+    uint8_t *uart_buff_ptr = uart_buff;
+    uint8_t ret;
 
-    len = IrStudy(buf, 0);
-    //Serial.write(buf, len);
-    IoTGpioSetOutputVal(buf, len);
-  
+    IotUartAttribute uart_attr = {
+
+        // baud_rate: 9600
+        .baudRate = 9600,
+        // data_bits: 8bits
+        .dataBits = 8,
+        .stopBits = 1,
+        .parity = 0,
+    };
+        
+    printf("******UartTask2******");
+
+    // Initialize uart driver
+    ret = IoTUartInit(WIFI_IOT_UART_IDX_1, &uart_attr);
+    if (ret != IOT_SUCCESS) {
+        printf("Failed to init uart! Err code = %d\n", ret);
+        return;
+    }
+    int len = IrStudy(buf,0);
+
+
+    // send data through uart1
+    IoTUartWrite(WIFI_IOT_UART_IDX_1, (unsigned char *)buf, len);
+
+    // receive data through uart1
+    //IoTUartRead(WIFI_IOT_UART_IDX_1, uart_buff_ptr, UART_BUFF_SIZE);
+    //printf("Uart1 read data:%s\n", uart_buff_ptr);
+    usleep(TASK_DELAY_1S);
+    
 }
 
-byte ssend(){
-  //按键2按下，开始红外内码发射
 
-    len = IrSend(buf, 0);
-    //Serial.write(buf, len);
-    IoTGpioSetOutputVal(buf, len);
+static void UartTask2(void)
+{
+    uint8_t uart_buff[UART_BUFF_SIZE] = { 0 };
+    uint8_t *uart_buff_ptr = uart_buff;
+    uint8_t ret;
 
-}
+    IotUartAttribute uart_attr = {
 
-/*
-void setup() {
-  // put your setup code here, to run once:
-      IotUartAttribute uart_attr = 
-    {
-        //波特率: 115200
-        .baudRate = 115200,
-
-        //data_bits: 8bits
+        // baud_rate: 9600
+        .baudRate = 9600,
+        // data_bits: 8bits
         .dataBits = 8,
         .stopBits = 1,
         .parity = 0,
     };
 
-  IoTGpioSetDir(BUTTON_F1_GPIO, IOT_GPIO_DIR_OUT);
-  IoTGpioSetDir(BUTTON_F2_GPIO, IOT_GPIO_DIR_OUT);
-}
-*/
-/*
-void loop() {
-  // put your main code here, to run repeatedly:
-  keyRead();
-  keyHandle();
-  delay(20);
-}
-*/
+    // Initialize uart driver
+    ret = IoTUartInit(WIFI_IOT_UART_IDX_1, &uart_attr);
+    if (ret != IOT_SUCCESS) {
+        printf("Failed to init uart! Err code = %d\n", ret);
+        return;
+    }
+    printf("******UartTask2******");
 
-/*
-static void InfrExampleEntry(void)
+    //红外内码发送
+    int len = IrSend(buf,0);
+
+    // send data through uart1
+    IoTUartWrite(WIFI_IOT_UART_IDX_1, (unsigned char *)buf, len);
+
+    // receive data through uart1
+    //IoTUartRead(WIFI_IOT_UART_IDX_1, uart_buff_ptr, UART_BUFF_SIZE);
+    //printf("Uart1 read data:%s\n", uart_buff_ptr);
+    usleep(TASK_DELAY_1S);
+}
+
+
+
+static void ButtonExampleEntry(void)
 {
     osThreadAttr_t attr;
 
-    attr.name = "keyHandle";
+    attr.name = "UartTask";
     attr.attr_bits = 0U;
     attr.cb_mem = NULL;
     attr.cb_size = 0U;
     attr.stack_mem = NULL;
-    attr.stack_size = INFR_TASK_STACK_SIZE;
-    attr.priority = INFR_TASK_PRIO;
-
-    if (osThreadNew((osThreadFunc_t)keyHandle, NULL, &attr) == NULL) {
-        printf("Failed to create LedTask!\n");
-    }
-
-}
-*/
-
-static void ButtonExampleEntry(void)
-{
+    attr.stack_size = UART_TASK_STACK_SIZE;
+    attr.priority = UART_TASK_PRIO;
 
 
-    // init gpio of F1 key and set it as the falling edge to trigger interrupt
+    //init gpio of F1 key and set it as the falling edge to trigger interrupt
     IoTGpioInit(BUTTON_F1_GPIO);
     IoTGpioSetDir(BUTTON_F1_GPIO, IOT_GPIO_DIR_IN);
-    IoTGpioRegisterIsrFunc(BUTTON_F1_GPIO, IOT_INT_TYPE_EDGE, IOT_GPIO_EDGE_FALL_LEVEL_LOW, sstudy, NULL);
-    // init gpio of F2 key and set it as the falling edge to trigger interrupt
+    IoTGpioSetPull(BUTTON_F1_GPIO, IOT_GPIO_PULL_UP);
+    IoTGpioRegisterIsrFunc(BUTTON_F1_GPIO, IOT_INT_TYPE_EDGE, IOT_GPIO_EDGE_FALL_LEVEL_LOW, UartTask1, NULL);
+
+    //init gpio of F2 key and set it as the falling edge to trigger interrupt
     IoTGpioInit(BUTTON_F2_GPIO);
     IoTGpioSetDir(BUTTON_F2_GPIO, IOT_GPIO_DIR_IN);
-    IoTGpioRegisterIsrFunc(BUTTON_F2_GPIO, IOT_INT_TYPE_EDGE, IOT_GPIO_EDGE_FALL_LEVEL_LOW, ssend, NULL);
+    IoTGpioSetPull(BUTTON_F2_GPIO, IOT_GPIO_PULL_UP);
+    IoTGpioRegisterIsrFunc(BUTTON_F2_GPIO, IOT_INT_TYPE_EDGE, IOT_GPIO_EDGE_FALL_LEVEL_LOW, UartTask2, NULL);
 }
-
 APP_FEATURE_INIT(ButtonExampleEntry);
+
+
+
