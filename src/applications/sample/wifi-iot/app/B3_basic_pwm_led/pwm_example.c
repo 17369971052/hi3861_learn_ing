@@ -28,7 +28,8 @@
 #define THREAD_PRIO 25
 
 #define PWM_CHANGE_TIMES 100
-#define PWM_FREQ 40000
+//#define PWM_FREQ 40000
+#define PWM_FREQ 50000
 #define PWM_DELAY_10US 10
 
 /**
@@ -51,8 +52,10 @@ static void PwmTask(void)
     // init PWM2
     IoTPwmInit(LED_GPIO);
 
-    while (1) {
-        for (i = 0; i < PWM_CHANGE_TIMES; i++) {
+    while (1)
+    {
+        for (i = 0; i < PWM_CHANGE_TIMES; i++) 
+        {
             // output PWM with different duty cycle
             IoTPwmStart(LED_GPIO, i, PWM_FREQ);
             usleep(PWM_DELAY_10US);

@@ -3,9 +3,10 @@
 这是一个个人学习文件
 
 ## 介绍
-1. 红外学习模块开发
-   请参阅app目录下的[ BearPi-HM_Nano开发板外设开发——红外学习模块](src/applications/sample/wifi-iot/app/demo_infrared\README.md).
-2. 舵机控制开发
+1. 基于红外学习模块的空调控制开发
+   请参阅app目录下的[ 基于红外学习模块的空调控制开发 ](src/applications/sample/wifi-iot/app/demo_infrared\README.md).
+2. 基于舵机的非侵入式开关开发
+  请参阅app目录下的[ 基于舵机的非侵入式开关开发 ](src/applications/sample/wifi-iot/app/demo_servo\README.md).
    
 ## 参考
 

@@ -20,11 +20,14 @@ lite_component("app") {
         #"D2_iot_wifi_sta_connect:wifi_sta_connect",
         #"D11_iot_cloud_oc_agriculture:cloud_oc_agriculture"
         #"A1_kernal_thread:thread_example",
-        "demo_infrared:example_demolink",
-        #B6_basic_uart:uart_example",
+        #"demo_infrared:example_demolink",
+        "demo_servo:servo_demolink",
+        #"servo_zhaoliang:MPU9250"
+        #"B6_basic_uart:uart_example",
         #"D8_iot_cloud_oc_light:cloud_oc_light",
         #"B2_basic_button:button_example",
         #"B3_basic_pwm_led:pwm_example",
+        #"sg90_demo:Servo_Task",
     ]
 }
 #

@@ -20,14 +20,13 @@ build cjson_ndk: phony obj/build/lite/config/component/cJSON/cjson_ndk.stamp
 build cjson_shared: phony obj/build/lite/config/component/cJSON/cjson_shared.stamp
 build cjson_static: phony ./libs/libcjson_static.a
 build cmsis: phony ./libs/libcmsis.a
-build config: phony obj/applications/sample/wifi-iot/app/demo_infrared/config.stamp
+build config: phony obj/applications/sample/wifi-iot/app/demo_servo/config.stamp
 build deviceauth: phony ./libs/libdeviceauth.a
 build deviceauth_hal_liteos: phony ./libs/libdeviceauth_hal_liteos.a
 build deviceauth_lite: phony obj/base/security/deviceauth/deviceauth_lite.stamp
 build discovery: phony ./libs/libdiscovery.a
 build discovery_ndk: phony obj/foundation/communication/softbus_lite/discovery_ndk.stamp
 build dump_static: phony ./libs/libdump_static.a
-build example_demolink: phony ./libs/libexample_demolink.a
 build file: phony obj/utils/native/lite/file/file.stamp
 build hal_file_static: phony ./libs/libhal_file_static.a
 build hal_iothardware: phony ./libs/libhal_iothardware.a
@@ -63,6 +62,7 @@ build samgr_adapter: phony ./libs/libsamgr_adapter.a
 build samgr_lite_ndk: phony obj/foundation/distributedschedule/samgr_lite/samgr_lite_ndk.stamp
 build samgr_source: phony ./libs/libsamgr_source.a
 build sdk: phony obj/device/hisilicon/hispark_pegasus/sdk_liteos/sdk.stamp
+build servo_demolink: phony ./libs/libservo_demolink.a
 build softbus: phony obj/foundation/communication/softbus_lite/softbus.stamp
 build softbus_lite_ndk: phony obj/foundation/communication/softbus_lite/softbus_lite_ndk.stamp
 build sysparam: phony ./libs/libsysparam.a
@@ -84,8 +84,8 @@ build wifiservice: phony ./libs/libwifiservice.a
 build wifiservice_ndk: phony obj/device/hisilicon/hispark_pegasus/hi3861_adapter/hals/communication/wifi_lite/wifiservice/wifiservice_ndk.stamp
 build applications/sample/wifi-iot/app$:app: phony obj/applications/sample/wifi-iot/app/app.stamp
 build applications/sample/wifi-iot/app: phony obj/applications/sample/wifi-iot/app/app.stamp
-build applications/sample/wifi-iot/app/demo_infrared$:config: phony obj/applications/sample/wifi-iot/app/demo_infrared/config.stamp
-build applications/sample/wifi-iot/app/demo_infrared$:example_demolink: phony ./libs/libexample_demolink.a
+build applications/sample/wifi-iot/app/demo_servo$:config: phony obj/applications/sample/wifi-iot/app/demo_servo/config.stamp
+build applications/sample/wifi-iot/app/demo_servo$:servo_demolink: phony ./libs/libservo_demolink.a
 build base/hiviewdfx/hilog_lite/frameworks/mini$:hilog_lite: phony ./libs/libhilog_lite.a
 build base/hiviewdfx/hilog_lite/frameworks/mini$:hilog_lite_ndk: phony obj/base/hiviewdfx/hilog_lite/frameworks/mini/hilog_lite_ndk.stamp
 build base/hiviewdfx/hiview_lite$:hiview_lite: phony ./libs/libhiview_lite.a
@@ -182,8 +182,8 @@ build vendor/hisilicon/hispark_pegasus/hals/utils/token$:hal_token_static: phony
 
 build all: phony $
     obj/applications/sample/wifi-iot/app/app.stamp $
-    obj/applications/sample/wifi-iot/app/demo_infrared/config.stamp $
-    ./libs/libexample_demolink.a $
+    obj/applications/sample/wifi-iot/app/demo_servo/config.stamp $
+    ./libs/libservo_demolink.a $
     ./libs/libhilog_lite.a $
     obj/base/hiviewdfx/hilog_lite/frameworks/mini/hilog_lite_ndk.stamp $
     ./libs/libhiview_lite.a $
