@@ -33,12 +33,11 @@ rule solink
   rspfile = ${output_dir}/${target_output_name}${output_extension}.rsp
   rspfile_content = ${in}
 
-build obj/applications/sample/wifi-iot/app/app.stamp: stamp obj/applications/sample/wifi-iot/app/startup/startup.stamp ./libs/libexample_demolink.a
+build obj/applications/sample/wifi-iot/app/app.stamp: stamp ./libs/libexample_demolink.a
 build libs/libiot_link.a: copy ../../../vendor/bearpi/bearpi_hm_nano/common/third_party/libs/libiot_link.a
 
 build obj/applications/sample/wifi-iot/app/demo_infrared/config.stamp: stamp libs/libiot_link.a
 subninja obj/applications/sample/wifi-iot/app/demo_infrared/example_demolink.ninja
-subninja obj/applications/sample/wifi-iot/app/startup/startup.ninja
 subninja obj/base/hiviewdfx/hilog_lite/frameworks/mini/hilog_lite.ninja
 build obj/base/hiviewdfx/hilog_lite/frameworks/mini/hilog_lite_ndk.stamp: stamp ./libs/libhilog_lite.a
 subninja obj/base/hiviewdfx/hiview_lite/hiview_lite.ninja
