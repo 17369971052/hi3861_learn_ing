@@ -197,7 +197,7 @@ static void deal_light_cmd(cmd_t *cmd, cJSON *obj_root)
 数据类型：`int`
 
 长度：`3`
-------------------------------------------
+
 命令名称：`ServoControl`
 
 参数名称：`Light`
