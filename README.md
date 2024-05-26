@@ -4,9 +4,9 @@
 
 ## 介绍
 1. 基于红外学习模块的空调控制开发
-   请参阅app目录下的[ 基于红外学习模块的空调控制开发 ](src/applications/sample/wifi-iot/app/demo_infrared\README.md).
+   请参阅app目录下的[ 基于红外学习模块的空调控制开发 ](src/applications/sample/wifi-iot/app/demo_infrared/README.md).
 2. 基于舵机的非侵入式开关开发
-  请参阅app目录下的[ 基于舵机的非侵入式开关开发 ](src/applications/sample/wifi-iot/app/demo_servo\README.md).
+  请参阅app目录下的[ 基于舵机的非侵入式开关开发 ](src/applications/sample/wifi-iot/app/demo_servo/README.md).
    
 ## 参考
 
